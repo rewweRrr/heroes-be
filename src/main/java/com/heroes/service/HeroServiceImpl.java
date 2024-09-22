@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 public class HeroServiceImpl implements HeroService {
@@ -27,15 +28,18 @@ public class HeroServiceImpl implements HeroService {
         // TODO add validations;
         HeroEntity heroEntity = heroRepository.createHero(createHeroDto);
         return heroMapper.from(heroEntity);
-//        heroStorageService.addHero(hero);
-//        return hero;
     }
 
     @Override
     public List<HeroDto> getHeroes() {
         List<HeroEntity> heroEntities = heroRepository.findAllHeroes();
         return heroMapper.from(heroEntities);
-//        return heroStorageService.getHeroes();
+    }
+
+    @Override
+    public Stream<HeroDto> getHeroesAsStream() {
+        Stream<HeroEntity> heroEntitiesStream = heroRepository.findAllHeroesAsStream();
+        return heroEntitiesStream.map(heroMapper::from);
     }
 
     @Override

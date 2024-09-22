@@ -7,6 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 public class HeroRepository implements PanacheRepository<HeroEntity> {
@@ -24,5 +25,9 @@ public class HeroRepository implements PanacheRepository<HeroEntity> {
 
     public List<HeroEntity> findAllHeroes() {
         return findAll().list();
+    }
+
+    public Stream<HeroEntity> findAllHeroesAsStream() {
+        return findAll().stream();
     }
 }
